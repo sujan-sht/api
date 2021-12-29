@@ -30,6 +30,8 @@
                                 <label for="name">Book Name:</label>
                                 <input type="text" class="form-control" name="name">
                             </div>
+                            
+                            <input type="hidden" class="form-control" name="user_id" value="{{ Auth::id()}}">
                             <div class="form-group">
                                 <label for="detail">Book Details:</label>
                                 <!-- <input type="text" class="form-control" name="detail"> -->

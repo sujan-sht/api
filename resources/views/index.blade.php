@@ -1,40 +1,29 @@
 @include('includes.header')
     
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-    <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
-            </li>
-            @if (Route::has('login'))
-                @auth
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ url('/dashboard') }}">Dashboard</a>
-                </li>
-                @else
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('login') }}">Log In</a>
-                </li>
-                @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('register') }}">Regsiter</a>
-                </li>
-                @endif
-                @endauth
-            @endif
-            </ul>
+@include('includes.navbar')
+
+
+<div class="container my-3">
+@foreach($products as $list)
+    <div class="row my-5">
+        <div class="col-md-6">
+            <img src="/image/{{ $list->image }}" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-6">
+            <h3>{{$list->name}}</h3>
+            <sub>By {{$list->user->name}}, created on {{date('jS M Y',strtotime ($list->updated_at))}}</sub>
+            <p>
+                {!! Str::limit($list->detail,250) !!}<br>
+                <a href="">Read More.</a>
+            </p> 
         </div>
     </div>
-</nav>
+@endforeach
+</div>
 
-    
-   
+<div class="d-flex justify-content-center">
+    {{$products->links()}}
+</div>
+
+@include('includes.footer')
 @include('includes.script')
